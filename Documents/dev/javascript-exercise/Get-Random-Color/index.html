@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+  <style>
+    #root {
+      height: 100vh;
+      width: 100vw;
+
+      display: grid;
+      place-items: center;
+    }
+
+    #root>button {
+      background-color: #cdedfd;
+      background-image: linear-gradient(319deg, #cdedfd 0%, #ffec82 37%, #ffcfd2 100%);
+      width: 150px;
+      font-weight: 800;
+      height: 50px;
+      border: lightgray;
+      border-radius: 50px;
+
+    }
+
+    #root>button:hover {
+      cursor: pointer;
+      transition: 0.2s;
+      color: antiquewhite;
+      font-weight: 800;
+      background-color: #d63230;
+      background-image: linear-gradient(319deg, #d63230 0%, #f39237 37%, #97cc04 100%);
+      box-shadow: 0px 10px 30px 1px gray;
+    }
+
+    #root>button:focus {
+      outline: none;
+    }
+
+    #root>span {
+      background-color: rgba(250, 250, 250, 0.1);
+      display: inline-block;
+      width: 200px;
+      height: 40px;
+      border-top: 1px solid antiquewhite;
+      border-bottom: 1px solid antiquewhite;
+      text-align: center;
+      line-height: 40px;
+      color: rgb(38, 38, 38);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<!-- 요구사항 - 버튼 클릭 시 : #root 요소의 배경색상을 랜덤한 색상으로 변경하세요.
+hint: 요소 노드의 style 프로퍼티의 어떤 프로퍼티에 접근하여 색상을 변경한다면, 문자열로 할당해야합니다.( ex. ‘rgba(256,256,256)’ ) -->
+
+<body>
+  <div id="root"><button>get random color!</button></div>
+  <script>
+    /* eslint-disable */
+    const $root = document.getElementById('root');
+    const $button = document.querySelector('button');
+
+
+    // a function sets a random color as backgroundColor of $root
+    function setRandomBgColor() {
+
+      const R = Math.floor(Math.random() * 255);
+      const G = Math.floor(Math.random() * 255);
+      const B = Math.floor(Math.random() * 255);
+      const A = (Math.floor(Math.random() * 10)) * 0.1;
+
+      $root.style.backgroundColor = `rgba(${R},${G},${B},${A})`;
+
+    }
+
+
+    // a function returns 'random color value' in string type
+    // e.g. 'rgb(256,43,50)' / '#ace'
+    function getRandomColor() {
+
+      const $span = document.createElement('span');
+      $root.appendChild($span);
+
+      $button.onclick = e => {
+        setRandomBgColor();
+        $span.textContent = e.target.parentNode.style.backgroundColor;
+
+      }
+    }
+
+    getRandomColor();
+  </script>
+</body>
+
+</html>
