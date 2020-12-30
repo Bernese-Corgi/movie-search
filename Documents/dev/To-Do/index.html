@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To Do List</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="container-todo">
+    <h1 class="headline-todo">TO DO</h1>
+    <input class="input-todo" type="text" />
+    <button class="add">ADD</button>
+    <ul class="todos">
+      <!-- <li>
+        <input type="checkbox">
+        test
+        <button>x</button>
+      </li> -->
+    </ul>
+  </div>
+
+  <script>
+    const $inputTodo = document.querySelector('.input-todo');
+    const $add = document.querySelector('.add');
+    const $todos = document.querySelector('.todos');
+
+
+
+    const addTodo = () => {
+      const {
+        value
+      } = $inputTodo;
+
+      if (!value) return;
+
+      const $li = document.createElement('li');
+      const textNode = document.createTextNode(value);
+
+      const $checkbox = document.createElement('input');
+      $checkbox.setAttribute('type', 'checkbox');
+
+      const $remove = document.createElement('button');
+      $remove.textContent = 'x';
+      $remove.classList.add('remove');
+
+      $li.appendChild($checkbox);
+      $li.appendChild(textNode);
+      $li.appendChild($remove);
+      $todos.appendChild($li);
+    };
+
+    $add.onclick = addTodo;
+  </script>
+</body>
+
+</html>
