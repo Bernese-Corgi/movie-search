@@ -68,9 +68,9 @@ hint: 요소 노드의 style 프로퍼티의 어떤 프로퍼티에 접근하여
     // a function sets a random color as backgroundColor of $root
     function setRandomBgColor() {
 
-      const R = Math.floor(Math.random() * 255);
-      const G = Math.floor(Math.random() * 255);
-      const B = Math.floor(Math.random() * 255);
+      const R = Math.floor(Math.random() * 256);
+      const G = Math.floor(Math.random() * 256);
+      const B = Math.floor(Math.random() * 256);
       const A = (Math.floor(Math.random() * 10)) * 0.1;
 
       $root.style.backgroundColor = `rgba(${R},${G},${B},${A})`;
@@ -88,7 +88,6 @@ hint: 요소 노드의 style 프로퍼티의 어떤 프로퍼티에 접근하여
       $button.onclick = e => {
         setRandomBgColor();
         $span.textContent = e.target.parentNode.style.backgroundColor;
-
       }
     }
 
