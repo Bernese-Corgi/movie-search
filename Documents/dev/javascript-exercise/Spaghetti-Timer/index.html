@@ -14,9 +14,11 @@
   <!--TODO 시간 사용자 설정대로 조작 기능-->
   <div class="container">
 
-    <span class="disp-min">7</span>
-    <span class="disp-colon">:</span>
-    <span class="disp-sec">00</span>
+    <div class="time-container">
+      <span class="disp-min">7</span>
+      <span class="disp-colon">:</span>
+      <span class="disp-sec">00</span>
+    </div>
 
     <button class="start">start</button>
     <button class="stop">stop</button>
@@ -43,7 +45,7 @@
         sec -= 1;
         $dispSec.textContent = sec;
 
-        if (!min === 0 && sec === 0) {
+        if (min > 0 && sec === 0) {
           sec = 60;
         } else if (sec === 59) {
           min -= 1;
@@ -53,7 +55,7 @@
           $message.textContent = 'Hello, spaghetti!';
           $message.style.backgroundColor = 'gold';
         }
-      }, 1000);
+      }, 50);
 
 
     };
