@@ -1,33 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { ReactComponent as LavaLamp } from '../assets/spinner.svg'
+import { ReactComponent as LavaLamp } from '../../assets/spinner.svg'
 
-export default function Input() {
+export default function SearchBox({
+  setMovies,
+  isLoading,
+  setIsLoading,
+  hasError,
+  setHasError,
+}) {
   const [input, setInput] = useState('')
-  const [movies, setMovies] = useState([])
-  const [hasError, setHasError] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
-
-  const searchInput = useRef()
 
   const onChange = (e) => {
     setInput(e.target.value)
   }
 
-  const onReset = () => {
-    setInput('')
-    searchInput.current.focus()
-  }
+  // const onReset = () => {
+  //   setInput('')
+  //   searchInput.current.focus()
+  // }
 
-  const onSubmit = (e) => {
-    console.log(e.target)
-    // setInput()
-  }
-
-  useEffect(() => {
-    fetch(`https://yts.mx/api/v2/list_movies.json?sort=${input}&limit=15`)
+  const onSubmit = () => {
+    fetch(`https://yts.mx/api/v2/list_movies.json?query_term=${input}`)
       // resolved
       .then((reponse) => reponse.json())
-      .then((data) => {
+      .then(({ data }) => {
         setMovies(data.movies)
         setIsLoading(false)
       })
@@ -36,7 +32,7 @@ export default function Input() {
         setHasError(error)
         setIsLoading(false)
       })
-  }, [input])
+  }
 
   if (isLoading) {
     return (
@@ -46,7 +42,7 @@ export default function Input() {
           position: 'absolute',
           top: '50%',
           left: '50%',
-          transform: 'translate(-50%, -50%)'
+          transform: 'translate(-50%, -50%)',
         }}
       />
     )
@@ -59,19 +55,13 @@ export default function Input() {
   return (
     <div className="searchArea">
       <label htmlFor="searchMovie">영화 검색</label>
-      <input
-        id="searchMovie"
-        onChange={onChange}
-        value={input}
-        ref={searchInput}
-      />
-      <input
-        type="button"
+      <input id="searchMovie" onChange={onChange} value={input} />
+      <button
         id="searchMovie"
         // onClick={onReset}
-        onClick={onSubmit}
-        value="검색"
-      />
+        onClick={onSubmit}>
+        검색
+      </button>
     </div>
   )
 }

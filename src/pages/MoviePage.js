@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { ReactComponent as LavaLamp } from '../assets/spinner.svg'
+import MovieList from 'components/MovieList/MovieList'
+import SearchBox from '../components/SearchBox/SearchBox'
 
-
-export default function MovieList() {
+export default function MoviePage() {
   const [movies, setMovies] = useState([])
   const [hasError, setHasError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setIsLoading(true)
-    fetch(`https://yts.mx/api/v2/list_movies.json
-    `)
+    fetch(`https://yts.mx/api/v2/list_movies.json`)
       // resolved
       .then((response) => response.json())
       .then(({ data }) => {
         setMovies(data.movies)
-        console.log(data)
-        console.log(data.movies)
+        // console.log(movies)
         setIsLoading(false)
       })
       // rejected
@@ -26,7 +25,6 @@ export default function MovieList() {
       })
   }, [])
 
-
   if (isLoading) {
     return (
       <LavaLamp
@@ -35,7 +33,7 @@ export default function MovieList() {
           position: 'absolute',
           top: '50%',
           left: '50%',
-          transform: 'translate(-50%, -50%)'
+          transform: 'translate(-50%, -50%)',
         }}
       />
     )
@@ -46,17 +44,17 @@ export default function MovieList() {
   }
 
   return (
-    <div className="movieArea" lang="ko">
-      <ul>
-        {movies.map((item) => {
-          return (
-            <li key={item.id}>
-              <h2>{item.title}</h2>
-              <img src={item.background_image} alt="" height={80} />
-            </li>
-          )
-        })}
-      </ul>
-    </div>
+    <>
+      <h1>Movie Search</h1>
+      <SearchBox
+        // onChangeSearch={setMovies}
+        setMovies={setMovies}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        hasError={hasError}
+        setHasError={setHasError}
+      />
+      <MovieList movies={movies} />
+    </>
   )
 }
